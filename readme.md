@@ -74,7 +74,7 @@ Photos:
 - [Adapter baord back](./img/Adapter_baord_back.png)
 - [MAX436](./img/MAX436.png)
 
-You will need to connect `V`, `M` and `Ct` signals from the Wi-Box to the shown in the following photo:
+You will need to connect `V`, `M` and `Ct` signals from the Wi-Box to the points shown at the following photo:
 
 ![Adapter_baord_connecting](./img/Adapter_baord_connecting.png)
 
@@ -83,7 +83,10 @@ Using the modified software on the Wi-Box, as described below, allows for integr
 - https://web.archive.org/web/20211128173119/https://linuch.pl/blog/fermax-wayfi-wideodomofon-hack-czesc-3
 
 Additionally, it is possible to implement the following scenario:
-- When you arrive at the outdoor panel and press your apartment button.
-- The composite video stream is captured by a composite USB capture device, such as `EasyCap`.
-- A script on a `Raspberry Pi` or another device performs facial recognition, comparing the captured image with a pre-trained model's database.
-- If the person is recognized and authorized, the script communicates with the Wi-Box to automatically unlock the door.
+- You arrive at the outdoor panel and press your apartment button.
+- The composite video stream is captured by a composite USB capture device, for example `EasyCap`.
+- A script on `Raspberry Pi` or another device performs facial recognition, comparing the captured video/image with a pre-trained model's database.
+- If the person is recognized and authorized, the script communicates with the Wi-Box to automatically unlock the entrance door.
+
+The security aspect is not addressed in this description. However, it's possible for someone to gain entry by following another person through the entrance door.
+With the proposed implementation, you would have photo or video evidence and a log of entry attempts.
