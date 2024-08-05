@@ -54,7 +54,7 @@ replace it with your specific address and calculate the checksum as outlined [he
 # save address
 echo -e '\xFB\x18\x02\x25' > /dev/ttySGK1
 # init address
-echo -e '\xFB\x10\x02\x1d' > /dev/ttySGK1
+echo -e '\xFB\x10\x02\x1D' > /dev/ttySGK1
 ```
 4. Restart the Wi-Box and test it by calling your apartment from the outdoor panel.
 
@@ -76,7 +76,7 @@ Photos:
 
 You will need to connect `V`, `M` and `Ct` signals from the Wi-Box to the points shown at the following photo:
 
-![Adapter_baord_connecting](./img/Adapter_baord_connecting.png)
+- [Connecting adapter board](./img/Adapter_baord_connecting.png)
 
 Using the modified software on the Wi-Box, as described below, allows for integration with your smart home system:
 - https://github.com/duhow/wibox
@@ -84,9 +84,51 @@ Using the modified software on the Wi-Box, as described below, allows for integr
 
 Additionally, it is possible to implement the following scenario:
 - You arrive at the outdoor panel and press your apartment button.
-- The composite video stream is captured by a composite USB capture device, for example `EasyCap`.
-- A script on `Raspberry Pi` or another device performs facial recognition, comparing the captured video/image with a pre-trained model's database.
+- The composite video stream is captured by a USB video capture device, for example `EasyCap`.
+- A [python script](https://www.tomshardware.com/how-to/raspberry-pi-facial-recognition) on `Raspberry Pi` or another device performs facial recognition, comparing the captured video/image with a pre-trained model's database.
 - If the person is recognized and authorized, the script communicates with the Wi-Box to automatically unlock the entrance door.
+The [link](./facial_recognition/facial_req.py) to example script from Caroline Dunn [facial_recognition](https://github.com/carolinedunn/facial_recognition) repo.
 
-The security aspect is not addressed in this description. However, it's possible for someone to gain entry by following another person through the entrance door.
+The security aspect is not addressed in this description. However, it's possible for someone to gain entry by following another person through the entrance door anyway.
 With the proposed implementation, you would have photo or video evidence and a log of entry attempts.
+
+To automatically capture video during calls, we can use [Motion Project](https://github.com/Motion-Project/motion). The only requirement for
+both facial recognition and video capturing by Motion is to have two video devices with identical video streams. This can be easily implemented using
+v4l2loopback and ffmpeg. For an example, refer to this [link](https://stackoverflow.com/questions/64751478/v4l2loopback-device-detected-by-chrome-not-seen-by-zoom-or-firefox) or follow the steps outlined below:
+
+1. Install v4l2loopback
+
+```bash
+sudo apt upgrade v4l2loopback-dkms
+```
+
+2. Create file /etc/modprobe.d/v4l2loopback.conf with following content:
+
+```
+options v4l2loopback devices=2 exclusive_caps=1,1 video_nr=10,11 card_label="Motion Camera","OpenCV Camera"  
+```
+
+3. Load kernel module and ensure that virtual video devices are created:
+
+```bash
+sudo modprobe -r v4l2loopback
+
+$ v4l2-ctl --list-devices
+
+"Motion Camera" (platform:v4l2loopback-000):
+        /dev/video10
+
+"OpenCV Camera" (platform:v4l2loopback-001):
+        /dev/video11
+
+AV TO USB2.0 (usb-xhci-hcd.0-1):
+        /dev/video0
+        /dev/video1
+        /dev/media3
+```
+
+4. Now, we need just start ffmpeg, which will duplicate video stream to two video devices:
+
+```bash
+sudo ffmpeg -f v4l2 -i /dev/video0 -f v4l2 /dev/video10 -f v4l2 /dev/video11 &
+```
