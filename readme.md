@@ -74,7 +74,7 @@ Photos:
 - [Adapter baord back](./img/Adapter_baord_back.png)
 - [MAX436](./img/MAX436.png)
 
-You will need to connect V, M and Ct signals from the Wi-Box to the shown in the following photo:
+You will need to connect `V`, `M` and `Ct` signals from the Wi-Box to the shown in the following photo:
 
 ![Adapter_baord_connecting](./img/Adapter_baord_connecting.png)
 
