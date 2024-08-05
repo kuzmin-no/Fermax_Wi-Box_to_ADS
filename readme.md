@@ -58,7 +58,7 @@ echo -e '\xFB\x10\x02\x1d' > /dev/ttySGK1
 ```
 4. Restart the Wi-Box and test it by calling your apartment from the outdoor panel.
 
-If you don't see a video stream in the application, or even a blue screen with the date and time, try enabling the video via the command line in the Sofia application:
+If you don't see a video stream in the mobile application, or even a blue screen with the date and time, try enabling the video via the command line in the Sofia:
 
 ```bash
 vionoff on
