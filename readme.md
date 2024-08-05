@@ -47,7 +47,7 @@ To change or program the VDS address, follow these steps:
   - Use a Fermax sniffer connected to the L line, as described [here](https://github.com/kuzmin-no/Fermax_CityMax_ADS_2447)
   - Read the EEPROM of the microcontroller in your monitor, as mentioned [here](https://github.com/kuzmin-no/Fermax_CityMax_ADS_2447)
 2. Reset the Wi-Box to factory defaults using [this video guide](https://www.youtube.com/watch?v=t7OitAPWH1Q)
-3. Gain root access to the shell and program your VDS address into the Wi-Box microcontroller. For example, if the VDS address is `0x02`,
+3. Gain root access to the shell and program your VDS address into the Wi-Box microcontroller. The VDS address is `0x02` in the example below, you need to
 replace it with your specific address and calculate the checksum as outlined [here](https://github.com/duhow/wibox/blob/main/docs/codes.md)
 
 ```bash
