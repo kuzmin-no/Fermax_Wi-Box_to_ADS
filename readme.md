@@ -70,13 +70,13 @@ adapter includes MAX436 `Wideband Transconductance Amplifier` on the back side o
 
 Photos:
 
-- [Adapter baord front](./img/Adapter_baord_front.png)
-- [Adapter baord back](./img/Adapter_baord_back.png)
+- [Adapter board front](./img/Adapter_board_front.png)
+- [Adapter board back](./img/Adapter_board_back.png)
 - [MAX436](./img/MAX436.png)
 
 You will need to connect `V`, `M` and `Ct` signals from the Wi-Box to the points shown at the following photo:
 
-- [Connecting adapter board](./img/Adapter_baord_connecting.png)
+- [Connecting adapter board](./img/Adapter_board_connecting.png)
 
 Using the modified software on the Wi-Box, as described below, allows for integration with your smart home system:
 - https://github.com/duhow/wibox
